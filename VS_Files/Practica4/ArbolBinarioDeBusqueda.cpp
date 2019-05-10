@@ -97,7 +97,7 @@ Nodo* ArbolBinarioDeBusqueda::buscarRecursivo(Nodo* raizSubarbol, int elementoAB
 		return raizSubarbol;
 	else if (elementoABuscar < raizSubarbol->contenido)
 		return buscarRecursivo(raizSubarbol->hijoIzquierdo, elementoABuscar);
-	else if (elementoABuscar > raizSubarbol->contenido)
+	else
 		return buscarRecursivo(raizSubarbol->hijoDerecho, elementoABuscar);
 }
 
