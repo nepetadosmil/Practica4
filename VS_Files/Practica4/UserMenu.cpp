@@ -32,7 +32,7 @@ unsigned UserMenu::getOption(unsigned max)
 		std::cout << "Please, enter your choice: ";
 		std::cin >> user;
 
-		if (user > 0 && user <= max)
+		if (user > 0 && user <= max) // If option is valid, return it
 			return user;
 
 		std::cout << "Invalid choice!\n\n";
