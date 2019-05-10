@@ -93,6 +93,7 @@ void ArbolBinarioDeBusqueda::eliminarSubarbol(Nodo* raizSubarbol){
 	} else if(raizSubarbol->hijoIzquierdo == NULL || orientacionSiguienteEliminacion == 1){
 		max_min = buscarMinimo(raizSubarbol->hijoDerecho);
 		raizSubarbol->contenido = max_min->contenido;
+		max_min->contenido = temp;
 		if (max_min->hijoDerecho == NULL && max_min->hijoIzquierdo == NULL)
 			eliminarNodo(max_min);
 		else
@@ -145,9 +146,9 @@ Nodo* ArbolBinarioDeBusqueda::buscarMinimo(Nodo* raizSubarbol){
 }
 
 void ArbolBinarioDeBusqueda::eliminarNodo(Nodo* nodoParaEliminar){
-	if (nodoParaEliminar->padre->contenido < nodoParaEliminar->contenido)
+	if (nodoParaEliminar->padre->contenido > nodoParaEliminar->contenido)
 		nodoParaEliminar->padre->hijoDerecho = NULL;
-	else if(nodoParaEliminar->padre->contenido > nodoParaEliminar->contenido)
+	else if(nodoParaEliminar->padre->contenido < nodoParaEliminar->contenido)
 		nodoParaEliminar->padre->hijoIzquierdo = NULL;
 	free(nodoParaEliminar);
 	--n;
