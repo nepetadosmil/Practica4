@@ -125,10 +125,12 @@
   <ItemGroup>
     <ClCompile Include="ArbolBinarioDeBusqueda.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="UserMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArbolBinarioDeBusqueda.h" />
     <ClInclude Include="Nodo.h" />
+    <ClInclude Include="UserMenu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

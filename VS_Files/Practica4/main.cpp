@@ -1,37 +1,31 @@
 #include <iostream>
 #include "ArbolBinarioDeBusqueda.h"
-
+#include "UserMenu.h"
 using namespace std;
 
 int main() {
+	UserMenu menu;
+	
+	while (true){ // Hasta que el usuario elija la opción 6, seguiremos ofreciendo opciones
+		switch (menu.getOption(6)) {
+		case 1: // Introducir número
 
-	ArbolBinarioDeBusqueda arbol;
+			break;
+		case 2: // Introducir 50 números aleatorios
 
-	// Creamos la lista de inserciones
-	int inserciones[] = { 5, 1, 6, 3, 7, 2, 4 };
+			break;
+		case 3: // Mostrar Inorder
 
-	// Vamos insertando e imprimiendo
-	for (int i = 0; i < 7; i++) {
-		cout << "Insercion de " << inserciones[i] << ":\n";
-		arbol.insertar(inserciones[i]);
-		arbol.imprimir();
+			break;
+		case 4: // Mostrar Preorder
+
+			break;
+		case 5: // Mostrar Postorder
+
+			break;
+		case 6: // Salir
+			std::cout << "Bye, bye! o/";
+			return 0;
+		}
 	}
-
-	cout << "Eliminamos 5\n";
-	arbol.eliminar(5);
-	arbol.imprimir();
-
-	cout << "Eliminamos 6\n";
-	arbol.eliminar(6);
-	arbol.imprimir();
-
-	cout << "Eliminamos 4\n";
-	arbol.eliminar(4);
-	arbol.imprimir();
-
-	cout << "Eliminamos 7\n";
-	arbol.eliminar(7);
-	arbol.imprimir();
-
-	return 0;
 }
