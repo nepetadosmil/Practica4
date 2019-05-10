@@ -35,20 +35,13 @@ void ArbolBinarioDeBusqueda::insertar(int nuevoElemento){
 	++n;
 }
 
+
+
 Nodo* ArbolBinarioDeBusqueda::buscar(int elementoABuscar){
 	return buscarRecursivo(raiz, elementoABuscar);
 }
 
-void ArbolBinarioDeBusqueda::eliminar(int elementoAEliminar){
-	Nodo* nodoParaEliminar = buscar(elementoAEliminar);
 
-	// COMPROBAMOS SI ES UNA HOJA
-	if (nodoParaEliminar->hijoDerecho == NULL && nodoParaEliminar->hijoIzquierdo == NULL)
-		eliminarNodo(nodoParaEliminar);
-	else
-		eliminarSubarbol(nodoParaEliminar);
-
-}
 
 void ArbolBinarioDeBusqueda::imprimir(){
 	imprimirRecursivo(raiz, 0, 0);
@@ -77,30 +70,7 @@ void ArbolBinarioDeBusqueda::imprimirRecursivo(Nodo* subarbol, int numeroTabulac
 	}
 }
 
-void ArbolBinarioDeBusqueda::eliminarSubarbol(Nodo* raizSubarbol){
-	Nodo* max_min;
-	int temp = raizSubarbol->contenido;
 
-	if (raizSubarbol->hijoDerecho == NULL || orientacionSiguienteEliminacion == -1) {
-		max_min = buscarMaximo(raizSubarbol->hijoIzquierdo);
-		raizSubarbol->contenido = max_min->contenido;
-		max_min->contenido = temp;
-		if (max_min->hijoDerecho == NULL && max_min->hijoIzquierdo == NULL)
-			eliminarNodo(max_min);
-		else
-			eliminarSubarbol(max_min);
-		orientacionSiguienteEliminacion = 1;
-	} else if(raizSubarbol->hijoIzquierdo == NULL || orientacionSiguienteEliminacion == 1){
-		max_min = buscarMinimo(raizSubarbol->hijoDerecho);
-		raizSubarbol->contenido = max_min->contenido;
-		max_min->contenido = temp;
-		if (max_min->hijoDerecho == NULL && max_min->hijoIzquierdo == NULL)
-			eliminarNodo(max_min);
-		else
-			eliminarSubarbol(max_min);
-		orientacionSiguienteEliminacion = -1;
-	}
-}
 
 Nodo* ArbolBinarioDeBusqueda::buscarHueco(Nodo* raizSubarbol, int elementoAInsertar){
 	assert(raizSubarbol != NULL);
@@ -118,6 +88,8 @@ Nodo* ArbolBinarioDeBusqueda::buscarHueco(Nodo* raizSubarbol, int elementoAInser
 	}
 }
 
+
+
 Nodo* ArbolBinarioDeBusqueda::buscarRecursivo(Nodo* raizSubarbol, int elementoABuscar){
 	if (raizSubarbol == NULL)
 		return NULL;
@@ -129,6 +101,8 @@ Nodo* ArbolBinarioDeBusqueda::buscarRecursivo(Nodo* raizSubarbol, int elementoAB
 		return buscarRecursivo(raizSubarbol->hijoDerecho, elementoABuscar);
 }
 
+
+
 Nodo* ArbolBinarioDeBusqueda::buscarMaximo(Nodo* raizSubarbol){
 	assert(raizSubarbol != NULL);
 	if (raizSubarbol->hijoDerecho == NULL)
@@ -136,6 +110,8 @@ Nodo* ArbolBinarioDeBusqueda::buscarMaximo(Nodo* raizSubarbol){
 	else
 		return buscarMaximo(raizSubarbol->hijoDerecho);
 }
+
+
 
 Nodo* ArbolBinarioDeBusqueda::buscarMinimo(Nodo* raizSubarbol){
 	assert(raizSubarbol != NULL);
@@ -145,14 +121,7 @@ Nodo* ArbolBinarioDeBusqueda::buscarMinimo(Nodo* raizSubarbol){
 		return buscarMaximo(raizSubarbol->hijoIzquierdo);
 }
 
-void ArbolBinarioDeBusqueda::eliminarNodo(Nodo* nodoParaEliminar){
-	if (nodoParaEliminar->padre->contenido > nodoParaEliminar->contenido)
-		nodoParaEliminar->padre->hijoDerecho = NULL;
-	else if(nodoParaEliminar->padre->contenido < nodoParaEliminar->contenido)
-		nodoParaEliminar->padre->hijoIzquierdo = NULL;
-	free(nodoParaEliminar);
-	--n;
-}
+
 
 ArbolBinarioDeBusqueda::~ArbolBinarioDeBusqueda(){
 	

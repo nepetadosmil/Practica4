@@ -1,7 +1,7 @@
 #pragma once
 #include "Nodo.h"
 #include <iostream>
-#include <assert.h>
+#include <cassert>
 
 // Árbol binario de búsqueda. Se permiten duplicados, y éstos van hacia la izquierda
 class ArbolBinarioDeBusqueda {
@@ -30,13 +30,6 @@ public:
 	// Complejidad espacial: O(lgn) con la mejor topología, O(n) con la peor
 	Nodo* buscar(int elementoABuscar);
 
-
-	// Elimina el primer nodo que se encuentre con un elemento dado
-	// Parámetro: elemento a eliminar
-	// Complejidad temporal: O(lgn) con la mejor topología, O(n) con la peor
-	// Complejidad espacial: O(lgn) con la mejor topología, O(n) con la peor
-	void eliminar(int elementoAEliminar);
-
 	// Imprime el árbol en forma de esquema tabulado
 	// Complejidad temporal: O(n), siendo n el número de nodos del subárbol, tanto con la mejor topología como con la peor
 	// Complejidad espacial: O(lgn) con la mejor topología, O(n) con la peor
@@ -62,14 +55,6 @@ protected:
 	// Complejidad espacial: O(lgn) con la mejor topología, O(n) con la peor
 	// (n es el número de nodos del subarbol)
 	void imprimirRecursivo(Nodo* subarbol, int numeroTabulaciones, int orientacion);
-
-	// Elimina recursivamente los nodos de un subarbol
-	// Parámetro: el nodo raíz del subarbol a eliminar
-	// Precondición: subarbol != NULL
-	// Complejidad temporal: O(n), siendo n el número de nodos del subárbol, tanto con la mejor topología como con la peor
-	// Complejidad espacial: O(lgn) con la mejor topología, O(n) con la peor
-	// (n es el número de nodos del subarbol)
-	void eliminarSubarbol(Nodo* raizSubarbol);
 
 	// Busca recursivamente el padre del hueco en donde podemos insertar un nuevo elemento dado
 	// Parámetros:
@@ -109,12 +94,4 @@ protected:
 	// Complejidad espacial: O(lgn) con la mejor topología, O(n) con la peor
 	// (n es el número de nodos del subarbol)
 	Nodo* buscarMinimo(Nodo* raizSubarbol);
-
-	// Elimina el nodo pasado como parametro. Lo sustituye por un descendiente suyo (recursivamente)
-	// Parámetros:
-	// - nodoParaEliminar: puntero al nodo que queremos eliminar
-	// Complejidad temporal: O(lgn) con la mejor topología, O(n) con la peor
-	// Complejidad espacial: O(lgn) con la mejor topología, O(n) con la peor
-	// (n es el número de nodos del subarbol que empieza en nodoParaEliminar)
-	void eliminarNodo(Nodo* nodoParaEliminar);
 };
