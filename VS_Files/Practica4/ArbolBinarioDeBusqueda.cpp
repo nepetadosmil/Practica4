@@ -1,5 +1,84 @@
 #include "ArbolBinarioDeBusqueda.h"
 
+
+void ArbolBinarioDeBusqueda::imprimirNodo(Nodo *nodo)
+{
+	assert(nodo != NULL);
+	std::cout << nodo->contenido;
+}
+
+
+
+void ArbolBinarioDeBusqueda::imprimirRec(Nodo* root, unsigned short orden) {
+	if (root == NULL)
+		return;
+
+	switch (orden) {
+	case INORDER: // Left -> Self -> Right
+		imprimirRec(root->hijoIzquierdo, orden);
+
+		if (root->hijoIzquierdo != NULL)
+			std::cout << " ";
+
+		imprimirNodo(root);
+
+		if (root->hijoDerecho != NULL)
+			std::cout << " ";
+
+		imprimirRec(root->hijoDerecho, orden);
+		break;
+
+	case PREORDER: // Self -> Left -> Right
+		imprimirNodo(root);
+
+		if (root->hijoIzquierdo != NULL)
+			std::cout << " ";
+
+		imprimirRec(root->hijoIzquierdo, orden);
+
+		if (root->hijoDerecho != NULL)
+			std::cout << " ";
+
+		imprimirRec(root->hijoDerecho, orden);
+
+		break;
+
+	case POSTORDER: // Left -> Right -> Self
+		imprimirRec(root->hijoIzquierdo, orden);
+
+		if (root->hijoIzquierdo != NULL)
+			std::cout << " ";
+
+		imprimirRec(root->hijoDerecho, orden);
+
+		if (root->hijoDerecho != NULL)
+			std::cout << " ";
+
+		imprimirNodo(root);
+		break;
+
+	default: // Invalid tree parsing order
+		throw std::invalid_argument("Invalid Order.");
+	}
+}
+
+
+
+void ArbolBinarioDeBusqueda::clear(Nodo* center)
+{
+	if (center == NULL)
+		return;
+
+	if (center->hijoIzquierdo != NULL)
+		this->clear(center->hijoIzquierdo);
+	if (center->hijoDerecho != NULL)
+		this->clear(center->hijoDerecho);
+
+	delete center; // Deletes after having deleted all its childs
+}
+
+
+
 ArbolBinarioDeBusqueda::ArbolBinarioDeBusqueda(){
 	raiz = NULL;
 	n = 0;
@@ -9,7 +88,7 @@ ArbolBinarioDeBusqueda::ArbolBinarioDeBusqueda(){
 void ArbolBinarioDeBusqueda::insertar(int nuevoElemento){
 
 	if (n == 0) {
-		raiz = (Nodo*)malloc(sizeof(Nodo));
+		raiz = new Nodo;
 		raiz->contenido = nuevoElemento;
 		raiz->hijoDerecho = NULL;
 		raiz->hijoIzquierdo = NULL;
@@ -17,15 +96,18 @@ void ArbolBinarioDeBusqueda::insertar(int nuevoElemento){
 	}
 	else {
 		Nodo* HuecoPadre = buscarHueco(raiz, nuevoElemento);
-		if (nuevoElemento >= HuecoPadre->contenido) {
-			HuecoPadre->hijoDerecho = (Nodo*)malloc(sizeof(Nodo));
+		if (nuevoElemento == HuecoPadre->contenido) // Si es igual a otro que ya está, lo ignoramos
+			return;
+
+		if (nuevoElemento > HuecoPadre->contenido) {
+			HuecoPadre->hijoDerecho = new Nodo;
 			HuecoPadre->hijoDerecho->contenido = nuevoElemento;
 			HuecoPadre->hijoDerecho->hijoDerecho = NULL;
 			HuecoPadre->hijoDerecho->hijoIzquierdo = NULL;
 			HuecoPadre->hijoDerecho->padre = HuecoPadre;
 		}
 		else {
-			HuecoPadre->hijoIzquierdo = (Nodo*)malloc(sizeof(Nodo));
+			HuecoPadre->hijoIzquierdo = new Nodo;
 			HuecoPadre->hijoIzquierdo->contenido = nuevoElemento;
 			HuecoPadre->hijoIzquierdo->hijoDerecho = NULL;
 			HuecoPadre->hijoIzquierdo->hijoIzquierdo = NULL;
@@ -43,31 +125,8 @@ Nodo* ArbolBinarioDeBusqueda::buscar(int elementoABuscar){
 
 
 
-void ArbolBinarioDeBusqueda::imprimir(){
-	imprimirRecursivo(raiz, 0, 0);
-}
-
-
-
-void ArbolBinarioDeBusqueda::imprimirRecursivo(Nodo* subarbol, int numeroTabulaciones, int orientacion){
-	if (subarbol == NULL)
-		return;
-	else {
-		for (int i = 0; i < numeroTabulaciones; i++)
-			std::cout << "\t";
-		if (orientacion == -1)	
-			std::cout << subarbol->contenido << "<izquierdo>\n";
-		else if (orientacion == 1)
-			std::cout << subarbol->contenido << "<derecho>\n";
-		else
-			std::cout << subarbol->contenido << "\n";
-
-		++numeroTabulaciones;
-
-		imprimirRecursivo(subarbol->hijoIzquierdo, numeroTabulaciones, -1);
-		imprimirRecursivo(subarbol->hijoDerecho, numeroTabulaciones, 1);
-
-	}
+void ArbolBinarioDeBusqueda::imprimir(unsigned short orden){
+	imprimirRec(raiz, orden);
 }
 
 
@@ -77,11 +136,13 @@ Nodo* ArbolBinarioDeBusqueda::buscarHueco(Nodo* raizSubarbol, int elementoAInser
 
 	if (elementoAInsertar > raizSubarbol->contenido && raizSubarbol->hijoDerecho == NULL)
 		return raizSubarbol;
-	else if(elementoAInsertar < raizSubarbol->contenido && raizSubarbol->hijoIzquierdo == NULL)
+	else if (elementoAInsertar < raizSubarbol->contenido && raizSubarbol->hijoIzquierdo == NULL)
+		return raizSubarbol;
+	else if (elementoAInsertar == raizSubarbol->contenido)
 		return raizSubarbol;
 
 	else {
-		if (elementoAInsertar >= raizSubarbol->contenido)
+		if (elementoAInsertar > raizSubarbol->contenido)
 			return buscarHueco(raizSubarbol->hijoDerecho, elementoAInsertar);
 		else
 			return buscarHueco(raizSubarbol->hijoIzquierdo, elementoAInsertar);
@@ -124,5 +185,5 @@ Nodo* ArbolBinarioDeBusqueda::buscarMinimo(Nodo* raizSubarbol){
 
 
 ArbolBinarioDeBusqueda::~ArbolBinarioDeBusqueda(){
-	
+	this->clear(this->raiz);
 }

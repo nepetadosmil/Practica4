@@ -2,6 +2,11 @@
 #include "Nodo.h"
 #include <iostream>
 #include <cassert>
+#include <stdexcept>
+
+#define INORDER 0
+#define PREORDER 1
+#define POSTORDER 2
 
 // Árbol binario de búsqueda. Se permiten duplicados, y éstos van hacia la izquierda
 class ArbolBinarioDeBusqueda {
@@ -10,51 +15,21 @@ class ArbolBinarioDeBusqueda {
 	int n; // Numero de nodos del arbol
 	int orientacionSiguienteEliminacion; // Orientacion (-1 si es izquierdo, 1 si es derecho) que tendrá que tener la siguiente eliminación a realizar
 
-public:
+	// Imprime el contenido del nodo dado
+	// @Param	nodo	Nodo a imprimir
+	// @Precond	nodo != NULL
+	void imprimirNodo(Nodo *nodo);
 
-	// Construye un árbol binario de búsqueda vacío
-	// Complejidad temporal y espacial: O(1)
-	ArbolBinarioDeBusqueda();
+	// Imprime todos los elementos en el orden dado de manera recursiva
+	// @Param	root	Nodo actual
+	// @Param	orden	Orden de impresión
+	// @Throws	std::invalid_argument
+	void imprimirRec(Nodo* root, unsigned short orden);
 
-	// Inserta un elemento (siempre se insertará como hoja)
-	// Parámetro: nuevo elemento a insertar. Lo coloca en su sitio adecuado
-	// Complejidad temporal: O(lgn) con la mejor topología, O(n) con la peor
-	// Complejidad espacial: O(lgn) con la mejor topología, O(n) con la peor
-	void insertar(int nuevoElemento);
-
-	// Busca un elemento en el arbol binario de busqueda
-	// Parámetros:
-	// - elementoABuscar es la clave del nodo que queremos encontrar
-	// Retorno: puntero al nodo que contiene el elementoABuscar, o NULL si no lo encuentra
-	// Complejidad temporal: O(lgn) con la mejor topología, O(n) con la peor
-	// Complejidad espacial: O(lgn) con la mejor topología, O(n) con la peor
-	Nodo* buscar(int elementoABuscar);
-
-	// Imprime el árbol en forma de esquema tabulado
-	// Complejidad temporal: O(n), siendo n el número de nodos del subárbol, tanto con la mejor topología como con la peor
-	// Complejidad espacial: O(lgn) con la mejor topología, O(n) con la peor
-	void imprimir();
-
-	// Destruye el árbol, liberando la memoria de todos los nodos
-	// Complejidad temporal: O(n), siendo n el número de nodos del subárbol, tanto con la mejor topología como con la peor
-	// Complejidad espacial: O(lgn) con la mejor topología, O(n) con la peor
-	~ArbolBinarioDeBusqueda();
+	// Destruye todos los nodos de manera recursiva
+	void clear(Nodo* center);
 
 protected:
-
-	// Imprime un subarbol por pantalla en forma de esquema, sangrando los hijos con una tabulación. Esta pensado para ser recursivo
-	// Parámetros:
-	// - subarbol: nodo raíz del subarbol que queremos imprimir
-	// - numeroTabulaciones: numero de tabulaciones con la que imprimimos la raiz. Los hijos directos tendrán una tabulación más
-	// - orientacion indica si subarbol (primer parametro) es un hijo izquierdo de su padre (-1) o es derecho (+1) o no tiene padre (0)
-	// Precondiciones: 
-	// - subarbol != NULL
-	// - numeroTabulaciones>=0
-	// - orientacion == 1 || orientacion == -1 || orientacion == 0
-	// Complejidad temporal: O(n), tanto con la mejor topología (T(n)=1+2T(n/2)) como con la peor (T(n)=1+T(n-1))
-	// Complejidad espacial: O(lgn) con la mejor topología, O(n) con la peor
-	// (n es el número de nodos del subarbol)
-	void imprimirRecursivo(Nodo* subarbol, int numeroTabulaciones, int orientacion);
 
 	// Busca recursivamente el padre del hueco en donde podemos insertar un nuevo elemento dado
 	// Parámetros:
@@ -94,4 +69,34 @@ protected:
 	// Complejidad espacial: O(lgn) con la mejor topología, O(n) con la peor
 	// (n es el número de nodos del subarbol)
 	Nodo* buscarMinimo(Nodo* raizSubarbol);
+
+public:
+
+	// Construye un árbol binario de búsqueda vacío
+	// Complejidad temporal y espacial: O(1)
+	ArbolBinarioDeBusqueda();
+
+	// Inserta un elemento (siempre se insertará como hoja)
+	// Parámetro: nuevo elemento a insertar. Lo coloca en su sitio adecuado
+	// Complejidad temporal: O(lgn) con la mejor topología, O(n) con la peor
+	// Complejidad espacial: O(lgn) con la mejor topología, O(n) con la peor
+	void insertar(int nuevoElemento);
+
+	// Busca un elemento en el arbol binario de busqueda
+	// Parámetros:
+	// - elementoABuscar es la clave del nodo que queremos encontrar
+	// Retorno: puntero al nodo que contiene el elementoABuscar, o NULL si no lo encuentra
+	// Complejidad temporal: O(lgn) con la mejor topología, O(n) con la peor
+	// Complejidad espacial: O(lgn) con la mejor topología, O(n) con la peor
+	Nodo* buscar(int elementoABuscar);
+
+	// Imprime el árbol en forma de esquema tabulado
+	// Complejidad temporal: O(n), siendo n el número de nodos del subárbol, tanto con la mejor topología como con la peor
+	// Complejidad espacial: O(lgn) con la mejor topología, O(n) con la peor
+	void imprimir(unsigned short orden);
+
+	// Destruye el árbol, liberando la memoria de todos los nodos
+	// Complejidad temporal: O(n), siendo n el número de nodos del subárbol, tanto con la mejor topología como con la peor
+	// Complejidad espacial: O(lgn) con la mejor topología, O(n) con la peor
+	~ArbolBinarioDeBusqueda();
 };

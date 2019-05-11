@@ -1,19 +1,25 @@
+/****************/
+/* Néstor Pérez */
+/* Raúl Sancho  */
+/****************/
+
 #include <iostream>
 #include <random>
 #include "ArbolBinarioDeBusqueda.h"
 #include "UserMenu.h"
 using namespace std;
 
+
 int main() {
 	ArbolBinarioDeBusqueda tree;
 	UserMenu menu; //UserMenu handles user menu choices
 
-	srand(NULL);
+	srand(NULL); // Random seed
 	
 	bool stop = false;
 	int tmp;
 
-	while (!stop){ // Hasta que el usuario elija la opción 6, seguiremos ofreciendo opciones
+	while (!stop){ // Hasta que el usuario elija la opción de salir (número 6 en este caso), seguiremos ofreciendo opciones
 		switch (menu.getOption(6)) {
 		
 		case 1: // Introducir número
@@ -26,19 +32,18 @@ int main() {
 			for (unsigned i = 0; i < 50; ++i)
 				tree.insertar(rand());
 			std::cout << "Elementos insertados!\n";
-			tree.imprimir();
 			break;
 		
 		case 3: // Mostrar Inorder
-
+			tree.imprimir(INORDER);
 			break;
 		
 		case 4: // Mostrar Preorder
-
+			tree.imprimir(PREORDER);
 			break;
 		
 		case 5: // Mostrar Postorder
-
+			tree.imprimir(POSTORDER);
 			break;
 		
 		case 6: // Salir
