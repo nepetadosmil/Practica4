@@ -7,7 +7,7 @@ static const char* options[] =
 	"Introducir 50 numeros aleatorios",	// 2
 	"Mostrar Inorder",					// 3
 	"Mostrar Preorder",					// 4
-	"Mostar Postorder",					// 5
+	"Mostrar Postorder",				// 5
 	"Salir"								// 6
 };
 
@@ -15,21 +15,21 @@ static const char* options[] =
 
 UserMenu::UserMenu()
 {
-
+	// None
 }
 
 
 
 unsigned UserMenu::getOption(unsigned max)
 {
-	unsigned user;
+	unsigned short user;
 
 	while (true){ // While user doesn't input a valid option
 		for (unsigned i = 0; i < max; ++i) { // Imprime las opciones
 			std::cout << i + 1 << " - " << options[i] << std::endl;
 		}
 
-		std::cout << "Please, enter your choice: ";
+		std::cout << "Introduzca la opcion deseada: ";
 		std::cin >> user;
 
 		if (user > 0 && user <= max) // If option is valid, return it
@@ -43,5 +43,5 @@ unsigned UserMenu::getOption(unsigned max)
 
 UserMenu::~UserMenu()
 {
-
+	// None
 }

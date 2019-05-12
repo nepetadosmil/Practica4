@@ -15,46 +15,45 @@ void ArbolBinarioDeBusqueda::imprimirRec(Nodo* root, unsigned short orden) {
 
 	switch (orden) {
 	case INORDER: // Left -> Self -> Right
-		imprimirRec(root->hijoIzquierdo, orden);
+		imprimirRec(root->hijoIzquierdo, orden); // Left
 
 		if (root->hijoIzquierdo != NULL)
-			std::cout << " ";
+			std::cout << " | ";
 
-		imprimirNodo(root);
+		imprimirNodo(root); // Self
 
 		if (root->hijoDerecho != NULL)
-			std::cout << " ";
+			std::cout << " | ";
 
-		imprimirRec(root->hijoDerecho, orden);
+		imprimirRec(root->hijoDerecho, orden); // Right
 		break;
 
 	case PREORDER: // Self -> Left -> Right
-		imprimirNodo(root);
+		imprimirNodo(root); // Self
 
 		if (root->hijoIzquierdo != NULL)
-			std::cout << " ";
+			std::cout << " | ";
 
-		imprimirRec(root->hijoIzquierdo, orden);
+		imprimirRec(root->hijoIzquierdo, orden); // Left
 
 		if (root->hijoDerecho != NULL)
-			std::cout << " ";
+			std::cout << " | ";
 
-		imprimirRec(root->hijoDerecho, orden);
-
+		imprimirRec(root->hijoDerecho, orden); // Right
 		break;
 
 	case POSTORDER: // Left -> Right -> Self
-		imprimirRec(root->hijoIzquierdo, orden);
+		imprimirRec(root->hijoIzquierdo, orden); // Left
 
 		if (root->hijoIzquierdo != NULL)
-			std::cout << " ";
+			std::cout << " | ";
 
-		imprimirRec(root->hijoDerecho, orden);
+		imprimirRec(root->hijoDerecho, orden); // Right
 
 		if (root->hijoDerecho != NULL)
-			std::cout << " ";
+			std::cout << " | ";
 
-		imprimirNodo(root);
+		imprimirNodo(root); // Self
 		break;
 
 	default: // Invalid tree parsing order
@@ -82,7 +81,6 @@ void ArbolBinarioDeBusqueda::clear(Nodo* center)
 ArbolBinarioDeBusqueda::ArbolBinarioDeBusqueda(){
 	raiz = NULL;
 	n = 0;
-	orientacionSiguienteEliminacion = 1;
 }
 
 void ArbolBinarioDeBusqueda::insertar(int nuevoElemento){
@@ -127,6 +125,7 @@ Nodo* ArbolBinarioDeBusqueda::buscar(int elementoABuscar){
 
 void ArbolBinarioDeBusqueda::imprimir(unsigned short orden){
 	imprimirRec(raiz, orden);
+	std::cout << std::endl;
 }
 
 

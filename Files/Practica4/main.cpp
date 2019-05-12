@@ -7,7 +7,6 @@
 #include <random>
 #include "ArbolBinarioDeBusqueda.h"
 #include "UserMenu.h"
-using namespace std;
 
 
 int main() {

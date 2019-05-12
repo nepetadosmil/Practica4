@@ -13,7 +13,6 @@ class ArbolBinarioDeBusqueda {
 
 	Nodo* raiz; // Raiz del árbol, o NULL si el arbol está vacío
 	int n; // Numero de nodos del arbol
-	int orientacionSiguienteEliminacion; // Orientacion (-1 si es izquierdo, 1 si es derecho) que tendrá que tener la siguiente eliminación a realizar
 
 	// Imprime el contenido del nodo dado
 	// @Param	nodo	Nodo a imprimir
