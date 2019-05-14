@@ -343,5 +343,6 @@ healthchecksdb
 # Backup folder for Package Reference Convert tool in Visual Studio 2017
 MigrationBackup/
 
-# Activity Explanation File (commented out)
+# Activity Explanation File
 # *.pdf
+*.docx
